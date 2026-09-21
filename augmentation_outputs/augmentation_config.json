@@ -1,10 +1,10 @@
 {
   "RANDOM_STATE": 42,
-  "FAST_MODE": true,
+  "FAST_MODE": false,
   "GAN_EPOCHS": {
-    "ae": 25,
-    "sup": 15,
-    "joint": 40
+    "ae": 150,
+    "sup": 100,
+    "joint": 300
   },
   "BATCH_SIZE": 64,
   "LATENT_DIM": 12,
@@ -63,6 +63,6 @@
     "early_stopping": false,
     "random_state": 42
   },
-  "device": "mps",
+  "device": "cuda",
   "test_hash": "820ec08b727b7ff3f55d657ac357b4b25016bb27"
 }
