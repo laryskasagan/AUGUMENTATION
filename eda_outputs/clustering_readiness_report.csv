@@ -1,0 +1,13 @@
+feature,role,tier,std,dynamic_activity,max_abs_corr,redundant_with,info_score,reasoning
+stator_winding,thermal,"Avoid (outcome — use to validate, not to cluster)",28.672060878743295,0.0483721683806774,0.9701347167288518,stator_tooth,0.001794050875192452,role=thermal; activity=0.048; max|corr|=0.970 with stator_tooth
+pm,thermal,"Avoid (outcome — use to validate, not to cluster)",19.00149771397544,0.04156798794974662,0.8320839020866841,stator_tooth,0.0017483542284971957,role=thermal; activity=0.042; max|corr|=0.832 with stator_tooth
+stator_tooth,thermal,"Avoid (outcome — use to validate, not to cluster)",22.952233065759017,0.025623619114000382,0.9701347167288518,stator_winding,0.000950341442940844,role=thermal; activity=0.026; max|corr|=0.970 with stator_winding
+stator_yoke,thermal,"Avoid (outcome — use to validate, not to cluster)",19.991003998315392,0.01854925409840758,0.9531145343543941,stator_tooth,0.0006993336101072068,role=thermal; activity=0.019; max|corr|=0.953 with stator_tooth
+motor_speed,operational,Must Include,1859.6633503968424,13.883891917630832,0.7006085022422485,i_d,0.6496957488788757,role=operational; activity=13.884; max|corr|=0.701 with i_d
+torque,operational,Must Include,77.13575481089514,1.0997650260990501,0.996457261765287,i_q,0.03974610333521458,role=operational; activity=1.100; max|corr|=0.996 with i_q
+i_d,electrical,"Optional (electrical, partly redundant)",64.93323319205702,1.1698396503261876,0.7006085022422485,motor_speed,0.05474256441896653,role=electrical; activity=1.170; max|corr|=0.701 with motor_speed
+u_d,electrical,"Optional (electrical, partly redundant)",63.09197160095296,1.054829713976634,0.7537790103072398,torque,0.0473408658720533,role=electrical; activity=1.055; max|corr|=0.754 with torque
+i_q,electrical,"Optional (electrical, partly redundant)",92.18187965028761,1.2279078541250006,0.996457261765287,torque,0.04437725450252524,role=electrical; activity=1.228; max|corr|=0.996 with torque
+u_q,electrical,"Optional (electrical, partly redundant)",44.173233561848434,0.8710443751937776,0.6835560102081114,motor_speed,0.04129537810322967,role=electrical; activity=0.871; max|corr|=0.684 with motor_speed
+coolant,context,Optional (regime context; risks clustering by test setup),21.786148973435203,0.042771991497846384,0.8607502848017003,stator_yoke,0.0017548386079881196,role=context; activity=0.043; max|corr|=0.861 with stator_yoke
+ambient,context,Optional (regime context; risks clustering by test setup),1.9295218592241008,0.020034244647017984,0.5259632835753959,coolant,0.001063506269378134,role=context; activity=0.020; max|corr|=0.526 with coolant

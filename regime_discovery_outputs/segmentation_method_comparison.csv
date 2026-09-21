@@ -1,0 +1,4 @@
+metoda,n_segments,ARI_vs_greedy
+greedy,1118,1.0
+binseg,1187,0.976
+pelt (ruptures),1228,0.969

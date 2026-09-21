@@ -1,0 +1,5 @@
+Metoda,K,Silhouette,Stability ARI,Stability NMI,Jednorodność operacyjna,Szum [%],Pokrycie [%]
+K-means,2,0.253,0.981,0.963,1.441,0.0,100.0
+GMM,3,0.146,0.494,0.445,1.443,0.0,100.0
+HDBSCAN,3,0.348,0.74,0.665,1.056,64.4,35.599999999999994
+k-Medoids + DTW,2,0.108,0.724,0.691,1.201,0.0,100.0

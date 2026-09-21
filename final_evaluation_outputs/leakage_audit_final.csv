@@ -1,0 +1,15 @@
+Kontrola,Wynik,Wartosc
+profile_train_val_test_rozlaczne,PASS,True
+podzial_zgodny_z_konfiguracja_NB4,PASS,True
+dane_syntetyczne_tylko_TRAIN,PASS,True
+zrodla_augmentacji_tylko_TRAIN,PASS,True
+TEST_niezmieniony_zgodny_z_NB4,PASS,True
+klastry_pochodza_z_NB3,PASS,True
+pm_nie_jest_predyktorem,PASS,True
+TEST_identyczny_dla_wszystkich_modeli,PASS,True
+liczba_obserwacji_TEST_zgodna_z_NB4,PASS,True
+standaryzator_dopasowany_tylko_na_TRAIN,PASS,True
+te_same_cechy_we_wszystkich_wariantach,PASS,True
+ta_sama_konfiguracja_modelu_dla_wariantow,PASS,True
+brak_danych_syntetycznych_w_TEST,PASS,True
+hash_TEST_zgodny_z_NB4,PASS,True

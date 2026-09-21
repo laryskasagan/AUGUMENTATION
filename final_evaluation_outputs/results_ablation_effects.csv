@@ -1,0 +1,5 @@
+Model,efekt_augmentacji(B-A),efekt_cluster_aware(C-B),efekt_GAN(D-C)
+Ridge,-0.17,0.131,0.2509
+RandomForest,-0.1194,0.1226,-0.0906
+KNN,-0.4494,0.4284,-0.1206
+HistGB,-0.071,-0.0527,0.0525

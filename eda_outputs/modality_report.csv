@@ -1,0 +1,7 @@
+channel,global_n_modes_bic,global_bic_gain,within_median_modes,within_pct_multimodal,verdict
+motor_speed,3,6673.5,3,100.0,multimodal within profile
+torque,3,14913.5,3,100.0,multimodal within profile
+i_d,3,33641.5,3,100.0,multimodal within profile
+i_q,3,31718.5,3,100.0,multimodal within profile
+u_q,3,4769.2,3,100.0,multimodal within profile
+pm,3,638.2,3,100.0,multimodal within profile

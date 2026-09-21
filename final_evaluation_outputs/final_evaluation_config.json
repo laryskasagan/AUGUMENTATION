@@ -1,0 +1,86 @@
+{
+  "RANDOM_STATE": 42,
+  "TARGET": "pm",
+  "FEATURES": [
+    "u_d",
+    "u_q",
+    "i_d",
+    "i_q",
+    "motor_speed",
+    "torque",
+    "coolant",
+    "ambient",
+    "u_s",
+    "i_s",
+    "omega",
+    "s_app",
+    "dt_s",
+    "i_s_ewm8",
+    "u_s_ewm8",
+    "coolant_ewm8",
+    "motor_speed_ewm8",
+    "i_s_ewm32",
+    "u_s_ewm32",
+    "coolant_ewm32",
+    "motor_speed_ewm32"
+  ],
+  "MODEL_CONFIG": {
+    "Ridge": {
+      "cls": "Ridge",
+      "params": {
+        "alpha": 10.0,
+        "random_state": 42
+      },
+      "scale": true
+    },
+    "RandomForest": {
+      "cls": "RandomForestRegressor",
+      "params": {
+        "n_estimators": 120,
+        "min_samples_leaf": 10,
+        "max_features": 0.6,
+        "n_jobs": -1,
+        "random_state": 42
+      },
+      "scale": false
+    },
+    "KNN": {
+      "cls": "KNeighborsRegressor",
+      "params": {
+        "n_neighbors": 15,
+        "weights": "distance",
+        "n_jobs": -1
+      },
+      "scale": true
+    },
+    "HistGB": {
+      "cls": "HistGradientBoostingRegressor",
+      "params": {
+        "max_iter": 250,
+        "learning_rate": 0.08,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 40,
+        "l2_regularization": 1.0,
+        "early_stopping": false,
+        "random_state": 42
+      },
+      "scale": false
+    }
+  },
+  "DATASET_VARIANTS": [
+    "REAL_ONLY",
+    "CLUSTER_AWARE_CLASSICAL",
+    "CLUSTER_AWARE_GAN",
+    "GLOBAL_AUG",
+    "GLOBAL_GAN",
+    "HYBRID_AUG"
+  ],
+  "SYNTHETIC_RATIOS": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "TEST_HASH": "820ec08b727b7ff3f55d657ac357b4b25016bb27",
+  "N_TEST_ROWS": 24832,
+  "FOCUS_MODEL": "HistGB"
+}

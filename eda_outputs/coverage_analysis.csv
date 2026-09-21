@@ -1,0 +1,5 @@
+plane,grid,occupied_cells,empty_cells,coverage_pct,dense_cells,sparse_cells,max_cell_count
+motor_speed vs torque,25x25,421,204,67.36,106,107,227177
+motor_speed vs pm,25x25,559,66,89.44,140,140,25787
+torque vs stator_winding,25x25,593,32,94.88,149,149,80971
+i_q vs pm,25x25,532,93,85.12,134,133,33921

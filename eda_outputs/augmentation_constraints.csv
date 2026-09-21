@@ -1,0 +1,9 @@
+relationship,feature_a,feature_b,pearson,spearman,strength,priority,temporal,why
+i_q <-> torque,i_q,torque,0.996457261765287,0.9738308840839991,0.996457261765287,MUST preserve,instantaneous,prąd q odpowiada za moment i powinien skalować się wspólnie
+coolant <-> stator_yoke,coolant,stator_yoke,0.8607502848017003,0.8269031209725142,0.8607502848017003,MUST preserve,lagged,chłodziwo wyznacza termiczną linię bazową
+u_q <-> motor_speed,u_q,motor_speed,0.6835560102081114,0.750974353260109,0.750974353260109,MUST preserve,instantaneous,napięcie rośnie wraz z prędkością / back-EMF
+i_d <-> motor_speed,i_d,motor_speed,-0.7006085022422485,-0.745829883151518,0.745829883151518,MUST preserve,instantaneous,prąd osłabiania pola zależy od prędkości
+ambient <-> pm,ambient,pm,0.5137278560161199,0.535961319722809,0.535961319722809,Should preserve,lagged,temperatura otoczenia jest wolnym warunkiem brzegowym
+torque <-> pm,torque,pm,-0.1171381414449006,-0.09320073639651082,0.1171381414449006,Monitor,lagged,temperatura wirnika zależy od historii obciążenia
+i_q <-> stator_winding,i_q,stator_winding,0.06561715785505905,0.10158617254039003,0.10158617254039003,Monitor,lagged,temperatura uzwojenia zależy od historii prądu
+motor_speed <-> torque,motor_speed,torque,-0.04390255895653573,-0.009560964416450107,0.04390255895653573,Monitor,instantaneous,punkt pracy musi pozostać w osiągalnej obwiedni speed–torque

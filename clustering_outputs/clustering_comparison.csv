@@ -1,0 +1,5 @@
+Method,K,FeatureSilhouette,StabilityARI,StabilityNMI,OpHomogeneity,Noise%,LargestShare,NativeMetric,FitTime_s
+kmeans,2,0.253,0.981,0.963,1.441,0.0,0.516,inertia=16525.0,0.01
+gmm,3,0.146,0.494,0.445,1.443,0.0,0.447,BIC=22341.4; AIC=15061.9; confidence=0.999,0.08
+hdbscan,3,0.348,0.74,0.665,1.056,64.4,0.221,DBCV=0.083; noise_ratio=0.644; coverage=0.356; mean_persistence=0.063,0.05
+kmedoids_dtw,2,0.108,0.724,0.691,1.201,0.0,0.576,DTW_silhouette=0.286; mean_intra_DTW=32.275,0.05

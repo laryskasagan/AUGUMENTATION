@@ -1,0 +1,68 @@
+{
+  "RANDOM_STATE": 42,
+  "FAST_MODE": true,
+  "GAN_EPOCHS": {
+    "ae": 25,
+    "sup": 15,
+    "joint": 40
+  },
+  "BATCH_SIZE": 64,
+  "LATENT_DIM": 12,
+  "HIDDEN_DIM": 24,
+  "FIXED_SEQUENCE_LENGTH": 128,
+  "AUGMENTATION_RATIOS": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "GAN_RATIOS": [
+    0.5,
+    1.0
+  ],
+  "NOISE_SCALE": 0.5,
+  "RATIO_CAP": 2.0,
+  "INTERP_LAMBDA": [
+    0.25,
+    0.75
+  ],
+  "K_NEIGHBORS": 5,
+  "SELECTED_CLUSTERING_METHOD": "kmeans",
+  "N_CLUSTERS": 2,
+  "SELECTED_FEATURES": [
+    "u_d",
+    "u_q",
+    "i_d",
+    "i_q",
+    "motor_speed",
+    "torque",
+    "coolant",
+    "ambient"
+  ],
+  "TARGET": "pm",
+  "CHANNELS": [
+    "u_d",
+    "u_q",
+    "i_d",
+    "i_q",
+    "motor_speed",
+    "torque",
+    "coolant",
+    "ambient",
+    "pm",
+    "stator_yoke",
+    "stator_tooth",
+    "stator_winding"
+  ],
+  "SAMPLING_FREQUENCY": 2.0,
+  "MODEL_PARAMS": {
+    "max_iter": 250,
+    "learning_rate": 0.08,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 40,
+    "l2_regularization": 1.0,
+    "early_stopping": false,
+    "random_state": 42
+  },
+  "device": "mps",
+  "test_hash": "820ec08b727b7ff3f55d657ac357b4b25016bb27"
+}

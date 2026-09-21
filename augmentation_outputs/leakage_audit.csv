@@ -1,0 +1,16 @@
+Kontrola,Wynik,Wartosc
+podzial_profili_zgodny_z_NB1,PASS,True
+profile_train_val_test_rozlaczne,PASS,True
+etykiety_klastrow_pochodza_z_NB3,PASS,True
+skaler_dopasowany_tylko_na_TRAIN,PASS,True
+parametry_augmentacji_tylko_z_TRAIN,PASS,True
+GAN_trenowany_tylko_na_TRAIN,PASS,True
+brak_syntetycznych_obserwacji_w_TEST,PASS,True
+augmentacja_nie_przekracza_profile_id,PASS,True
+test_niezmieniony_po_augmentacji,PASS,True
+zadne_zrodlo_syntetyczne_nie_pochodzi_z_VAL_TEST,PASS,True
+dane_uczace_GAN_i_szumu_tylko_TRAIN,PASS,True
+augmentacja_nie_przekracza_granic_segmentow,PASS,True
+ocena_na_rzeczywistym_TEST_bez_syntetykow,PASS,True
+identyczne_hiperparametry_modelu,PASS,True
+identyczna_liczba_syntetykow_global_vs_cluster,PASS,True
