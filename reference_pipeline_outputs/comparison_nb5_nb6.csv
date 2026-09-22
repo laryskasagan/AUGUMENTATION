@@ -1,0 +1,8 @@
+notatnik,model,REAL_ONLY_RMSE,najlepszy_wariant,najlepszy_RMSE,dRMSE_pct
+NB#5 (reprezentacja segmentowa),Ridge,10.232,GLOBAL_AUG,10.062,1.66
+NB#5 (reprezentacja segmentowa),RandomForest,11.611,CLUSTER_AWARE_GAN,11.405,1.77
+NB#5 (reprezentacja segmentowa),KNN,13.93,GLOBAL_AUG,13.48,3.23
+NB#5 (reprezentacja segmentowa),HistGB,11.111,CLUSTER_AWARE_GAN,10.888,2.02
+NB#6 (preprocessing referencyjny),OLS,6.22,GLOBAL_AUG,5.986,3.76
+NB#6 (preprocessing referencyjny),WLS,6.006,GLOBAL_AUG,5.812,3.23
+NB#6 (preprocessing referencyjny),HistGB,6.357,CLUSTER_AWARE_GAN,6.296,0.96

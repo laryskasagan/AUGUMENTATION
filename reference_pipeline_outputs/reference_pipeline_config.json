@@ -1,0 +1,59 @@
+{
+ "SPANS": [
+  60,
+  120,
+  360,
+  3360
+ ],
+ "SPANS_PAPER": [
+  1320,
+  3360,
+  6360,
+  9480
+ ],
+ "SPAN_POOL": [
+  60,
+  120,
+  360,
+  1320,
+  3360,
+  6360,
+  9480,
+  14400,
+  21600
+ ],
+ "WARMUP_SAMPLES": 60,
+ "SIGNALS": [
+  "ambient",
+  "coolant",
+  "u_d",
+  "u_q",
+  "i_d",
+  "i_q",
+  "motor_speed",
+  "u_s",
+  "i_s",
+  "S_el",
+  "i_s_x_w",
+  "S_el_x_w"
+ ],
+ "n_features": 108,
+ "BUDGET": 785632,
+ "MODEL_NAMES": [
+  "OLS",
+  "WLS",
+  "HistGB"
+ ],
+ "FOCUS_MODEL": "OLS",
+ "HGB_PARAMS": {
+  "max_iter": 250,
+  "learning_rate": 0.08,
+  "max_leaf_nodes": 31,
+  "min_samples_leaf": 40,
+  "l2_regularization": 1.0,
+  "early_stopping": false,
+  "random_state": 42
+ },
+ "RANDOM_STATE": 42,
+ "test_fingerprint": "e8e0ae52a2fd9888939367083420895eaf02e97a"
+}

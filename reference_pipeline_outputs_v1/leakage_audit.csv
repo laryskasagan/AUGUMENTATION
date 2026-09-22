@@ -1,0 +1,13 @@
+Kontrola,Wynik,Wartosc
+profile_train_val_test_rozlaczne,PASS,True
+dane_syntetyczne_tylko_TRAIN,PASS,True
+kotwice_historii_tylko_z_TRAIN,PASS,True
+pm_nie_jest_predyktorem,PASS,True
+brak_temperatur_stojana_w_cechach,PASS,True
+standaryzator_dopasowany_tylko_na_TRAIN,PASS,True
+liczba_cech_zgodna_z_literatura,PASS,True
+TEST_niezmieniony_we_wszystkich_eksperymentach,PASS,True
+TEST_identyczna_liczba_predykcji,PASS,True
+okres_rozgrzewania_stosowany_spojnie,PASS,True
+spany_wybrane_bez_udzialu_TEST,PASS,True
+budzet_syntetycznych_zrownany,PASS,True

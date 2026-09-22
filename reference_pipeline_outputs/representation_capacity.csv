@@ -1,0 +1,5 @@
+ocena,MSE,RMSE,MAE,R2,linf
+TRAIN (in-sample),20.104,4.484,3.241,0.9407,40.76
+TEST (in-sample),13.402,3.661,2.653,0.9634,27.1
+TEST (out-of-sample),38.689,6.22,4.734,0.8945,28.69
+[A] Tab. III (TEST 2 profile),3.1,1.761,1.46,0.98,7.47

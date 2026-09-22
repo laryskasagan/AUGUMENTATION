@@ -1,0 +1,45 @@
+WNIOSKI KOŃCOWE — estymacja pm (na podstawie wykonanych wyników)
+==================================================================
+
+1. RQ1 — augmentacja vs dane wyłącznie rzeczywiste. W pełnej macierzy 4 modeli x 5 wariantów poprawę RMSE odnotowano w 15/20 kombinacjach; mediana ΔRMSE = +0.57%, zakres [-1.59%, +3.23%]. Efekt jest zatem przeciętnie dodatni, lecz mały — rzędu pojedynczych procentów RMSE — i dla części kombinacji ujemny.
+   Zastrzeżenie metodologiczne: tabela końcowa (sekcja 16) wskazuje najlepszy wariant per model NA ZBIORZE TEST (4/4 modeli z poprawą, mediana +1.90%). Jest to wartość obciążona selekcją post hoc i stanowi GÓRNE OGRANICZENIE efektu, nie jego niezależne oszacowanie.
+
+2. Istotność statystyczna (model HistGB, porównanie parowe na 11 profilach TEST, bootstrap 95% CI): wariantów istotnych 0/5. Najsilniejszy efekt: CLUSTER_AWARE_GAN (-0.398 K, CI [-0.935, +0.183] K, 8/11 profili z poprawą).
+   Żaden wariant nie osiąga istotności: obserwowana poprawa mieści się w niepewności wynikającej z małej liczby niezależnych profili TEST. Wniosek o poprawie ma charakter KIERUNKOWY (spójny znak efektu), a nie potwierdzony statystycznie.
+   Dla kalibracji: rozrzut wynikający z samej losowości modelu (RandomForest, 3 ziarna) to sigma = 0.013 K, tj. ok. 31x mniej niż wielkość efektu. Efekty nie są więc artefaktem ziarna losowego, ale są małe wobec zmienności międzyprofilowej.
+
+3. RQ2 — cluster-awareness: BRAK PRZEWAGI CLUSTER-AWARENESS. Efekt C−B (ΔRMSE [K], <0 = przewaga cluster-aware) wynosi średnio +0.167 K; korzystny dla 0/4 modeli. Przy identycznej liczbie segmentów syntetycznych augmentacja globalna jest równie dobra lub lepsza, co stanowi wynik NEGATYWNY dla drugiej części hipotezy głównej. Sam przyrost liczby obserwacji wyjaśnia obserwowaną poprawę (efekt B−A: średnio -0.202 K) lepiej niż warunkowanie generacji reżimem pracy.
+
+4. RQ3 — GAN: efekt WARUNKOWY. Wobec klasycznej augmentacji cluster-aware (D−C) GAN daje średnio -0.085 K i jest korzystny dla 3/4 modeli (RandomForest, KNN, HistGB). Wobec prostszej linii bazowej GLOBAL_AUG przewaga topnieje do 2/4 modeli (średnio +0.081 K), a wariant GLOBAL_GAN (GAN bez informacji o reżimach) pogarsza RMSE dla 2/4 modeli. Użyteczność GAN jest więc warunkowana klastrowaniem: przewagę nad najlepszym wariantem klasycznym zachowuje tylko dla RandomForest, HistGB, a bez warunkowania reżimem (GLOBAL_GAN) wypada najsłabiej z badanych wariantów.
+
+5. RQ5 — zależność od rodziny modelu: efekt NIE jest niezależny od estymatora. Najlepszy wariant różni się między modelami (Ridge: GLOBAL_AUG, RandomForest: CLUSTER_AWARE_GAN, KNN: GLOBAL_AUG, HistGB: CLUSTER_AWARE_GAN). Poprawę dla wszystkich 4 rodzin modeli zapewniają jedynie CLUSTER_AWARE_CLASSICAL, GLOBAL_AUG (2/5 wariantów); pozostałe dają efekt zmienny znakowo:
+   CLUSTER_AWARE_CLASSICAL    poprawa dla 4/4 modeli, mediana +0.31%
+   CLUSTER_AWARE_GAN          poprawa dla 3/4 modeli, mediana +1.31%
+   GLOBAL_AUG                 poprawa dla 4/4 modeli, mediana +1.34%
+   GLOBAL_GAN                 poprawa dla 2/4 modeli, mediana +0.05%
+   HYBRID_AUG                 poprawa dla 2/4 modeli, mediana +0.17%
+   Największe względne korzyści notują modele o najwyższym błędzie bazowym (KNN: RMSE REAL_ONLY 13.93 K), co wskazuje, że augmentacja kompensuje raczej słabość estymatora niż niedostatek informacji w danych.
+
+6. RQ4/RQ7 — reżimy pracy (model HistGB). Klastry w TRAIN są niemal równoliczne ({0: 355, 1: 379} segmentów, udziały {0: 48.4, 1: 51.6}%), dlatego klastra 0 nie należy opisywać jako 'niedoreprezentowanego' — jest on TRUDNIEJSZY: RMSE REAL_ONLY = 13.37 K wobec 10.55 K dla klastra 1.
+   Efekt augmentacji jest NIESPÓJNY między reżimami: poprawa koncentruje się w reżimie trudnym (najlepiej CLUSTER_AWARE_GAN: +6.90% dla klastra 0) przy niewielkim pogorszeniu reżimu łatwiejszego (najgorzej GLOBAL_GAN: -1.38% dla klastra 1). Rozstęp RMSE między reżimami maleje z 2.82 K (REAL_ONLY) do 1.86 K (GLOBAL_AUG), tj. o 34%. Najlepiej udokumentowanym skutkiem augmentacji cluster-aware jest więc WYRÓWNANIE jakości estymacji między reżimami, a nie globalny wzrost dokładności — co odpowiada twierdząco na RQ7 i przecząco na RQ4 (w sensie spójności efektu).
+
+7. RQ6 — wolumen danych syntetycznych (model HistGB, udziały 25%, 50%, 100%):
+   CLUSTER_AWARE_CLASSICAL    BRAK monotoniczności (11.033->10.782->11.056), optimum przy udziale 50%
+   CLUSTER_AWARE_GAN          BRAK monotoniczności (10.962->10.716->10.888), optimum przy udziale 50%
+   GLOBAL_AUG                 BRAK monotoniczności (10.929->10.686->11.040), optimum przy udziale 50%
+   Odpowiedź na RQ6 jest przecząca: zależność udział → RMSE nie jest monotoniczna. Wszystkie badane warianty osiągają optimum przy tym samym udziale (50%), a dalsze zwiększanie udziału pogarsza wynik, co jest zgodne z rozcieńczaniem danych rzeczywistych przez dane syntetyczne. Najlepszy punkt eksperymentu (GLOBAL_AUG, udział 50%, RMSE 10.686 K, +3.83% względem REAL_ONLY) przewyższa wszystkie warianty z tabeli głównej, lecz udział dobrano na zbiorze TEST — wartość tę należy traktować jako hipotezę do potwierdzenia na zbiorze walidacyjnym.
+
+8. Hipoteza główna — CZĘŚCIOWO ODRZUCONA. Część pierwsza (augmentacja poprawia generalizację modeli estymujących pm) znajduje słabe, kierunkowe potwierdzenie (spójny znak efektu, brak istotności statystycznej): mediana poprawy +0.57% RMSE, a 95% CI różnicy na poziomie profili obejmuje zero. Część druga (przewaga augmentacji cluster-aware nad równoważną globalną) zostaje ODRZUCONA: przy równym budżecie danych syntetycznych informacja o reżimach nie obniżyła błędu globalnego. Udokumentowaną korzyścią z podejścia cluster-aware pozostaje redukcja rozstępu błędu między reżimami pracy (o 34%) oraz poprawa reżimu trudnego (+6.90%).
+
+9. Ograniczenia ważności wniosków:
+   (a) moc statystyczna — tylko 11 niezależnych profili TEST, stąd szerokie CI i brak istotności;
+   (b) selekcja na TEST — 'najlepszy wariant' (sekcja 16) oraz optymalny udział danych syntetycznych
+       (sekcja 13) wybrano na zbiorze testowym, co zawyża te wartości;
+   (c) reprezentacja segmentów o stałej długości L=128 — utrata bezwzględnej skali czasu, istotnej dla
+       dynamiki termicznej;
+   (d) K=2 klastry — zgrubna dyskretyzacja przestrzeni reżimów pracy;
+   (e) skrócony trening TimeGAN (FAST_MODE w NB#4) — dolne oszacowanie potencjału augmentacji GAN;
+   (f) jedna konfiguracja hiperparametrów na model (brak strojenia per wariant) — celowe dla izolacji
+       efektu augmentacji, ale zaniża bezwzględną jakość modeli;
+   (g) jedno stanowisko pomiarowe (jeden egzemplarz silnika) — brak podstaw do generalizacji
+       na inne maszyny.

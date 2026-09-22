@@ -1,0 +1,51 @@
+WNIOSKI - preprocessing referencyjny wg [A]/[B] (na podstawie wykonanych wynikow)
+==============================================================================
+
+1. RQ1' - dane rzeczywiste. Algorytm referencyjny (OLS, 108 cech, spany [0.5, 1.0, 3.0, 28.0] min) osiaga na zbiorze TEST MSE=38.69 C^2, RMSE=6.22 K, MAE=4.73 K, R2=0.894, ||e||inf=28.7 K. W [A] raportowano MSE=3.1 C^2 na zbiorze TEST obejmujacym 2 profile (7 h); tutaj TEST to 11 profili (37 h).
+   Kontrola (sekcja 7): ten sam model dopasowany in-sample na obserwacjach TEST daje MSE=13.40 C^2, wiec 65% bledu out-of-sample pochodzi z GENERALIZACJI NA NIEZNANE PROFILE. Pozostala roznica wobec 3.1 C^2 w [A] NIE zostaje w pelni wyjasniona i ma co najmniej trzy dalsze zrodla: (i) zbior TEST obejmuje 11 sesji pomiarowych zamiast 2, przy znacznie wiekszej roznorodnosci rezimow; (ii) spany wybrano z 9-elementowej puli, a nie optymalizacja bayesowska jak w [A]; (iii) wykorzystana wersja zbioru liczy 185 h wobec ~140 h w [A]. Rozrzut miedzy profilami TEST jest duzy: MSE od 22.1 do 95.1 C^2, a dla dwoch profili R2 jest ujemny - model nie odtwarza ich przebiegu.
+
+2. Wplyw preprocessingu. Dla identycznego modelu HistGB zmiana reprezentacji segmentowej (NB#5) na preprocessing referencyjny obniza RMSE z 11.11 K do 6.36 K, tj. o 43%. Dobor cech wg literatury ma wiec efekt o rzad wielkosci wiekszy niz jakakolwiek badana metoda augmentacji.
+
+3. RQ2' - augmentacja. W macierzy 3 modeli x 5 wariantow poprawe MSE odnotowano w 6/15 kombinacjach; mediana dMSE = -2.46%, zakres [-29.72%, +11.86%]. Efekt jest zatem NIEJEDNORODNY: czesc wariantow poprawia, czesc wyraznie pogarsza estymacje.
+   Rozklad efektu w obrebie wariantow (przy zrownanym budzecie obserwacji):
+   GLOBAL_AUG               poprawa dla 2/3 modeli, mediana dMSE +6.37%
+   CLUSTER_AWARE_CLASSICAL  poprawa dla 2/3 modeli, mediana dMSE +10.08%
+   GLOBAL_GAN               poprawa dla 1/3 modeli, mediana dMSE -21.56%
+   CLUSTER_AWARE_GAN        poprawa dla 1/3 modeli, mediana dMSE -24.44%
+   HYBRID_AUG               poprawa dla 0/3 modeli, mediana dMSE -18.56%
+
+4. Istotnosc statystyczna (model OLS, 11 profili TEST, bootstrap 95% CI): wariantow istotnych 3/5. Najsilniejszy efekt: CLUSTER_AWARE_CLASSICAL (-0.377 K, CI [-0.765, -0.064] K, 9/11 profili z poprawa). Istotnosc potwierdzono dla: GLOBAL_AUG, CLUSTER_AWARE_CLASSICAL, CLUSTER_AWARE_GAN.
+
+5. RQ3' - cluster-awareness przy rownym budzecie obserwacji:
+   CLUSTER_AWARE_CLASSICAL vs GLOBAL_AUG: dMSE = -0.85 C^2 sredio, przewaga cluster-aware dla 2/3 modeli
+   CLUSTER_AWARE_GAN vs GLOBAL_GAN: dMSE = +1.44 C^2 sredio, przewaga cluster-aware dla 0/3 modeli
+
+6. RQ4' - augmentacja GAN. Mediana dMSE dla wariantow GAN (GLOBAL_GAN, CLUSTER_AWARE_GAN) wynosi -23.00%, wobec +6.87% dla augmentacji klasycznej (GLOBAL_AUG, CLUSTER_AWARE_CLASSICAL). Dla modeli liniowych norma maksimum rosnie z 29 K (REAL_ONLY) do 86 K, co jest szczegolnie niekorzystne dla zabezpieczenia przed przegrzaniem magnesow. Wyjatkiem jest HistGB, dla ktorego warianty GAN daja niewielka poprawe - efekt GAN jest wiec zaleznny od rodziny modelu, lecz dla referencyjnego estymatora liniowego dane z TimeGAN sa SZKODLIWE.
+
+7. Rezimy pracy (model OLS). Klastry sa niemal rownoliczne w TRAIN ({0: 355, 1: 379} segmentow), a roznia sie trudnoscia: MSE REAL_ONLY 39.6 C^2 (klaster 1) wobec 28.1 C^2 (klaster 0). Najwieksza poprawa rezimu: CLUSTER_AWARE_CLASSICAL, +13.27% dla klastra 1. Rozstep RMSE miedzy rezimami zmienia sie z 1.00 K (REAL_ONLY) do 0.27 K (CLUSTER_AWARE_CLASSICAL).
+
+8. Kontrola budzetu obserwacji. Porownanie wariantow ze zrownanym i niezrownanym budzetem (model OLS):
+   GLOBAL_AUG               zrownany   +7.37% | bez zrownania   +6.96%
+   CLUSTER_AWARE_CLASSICAL  zrownany  +11.86% | bez zrownania  +12.38%
+   GLOBAL_GAN               zrownany  -21.56% | bez zrownania  -21.56%
+   CLUSTER_AWARE_GAN        zrownany  -24.44% | bez zrownania  -24.24%
+   HYBRID_AUG               zrownany  -18.56% | bez zrownania  -18.32%
+
+9. RQ5' - rewizja wnioskow NB#5. Zmiana modelu downstream na referencyjny modyfikuje odpowiedzi:
+   (a) skala efektu augmentacji rosnie - w NB#5 mediana poprawy byla rzedu +0.6% RMSE, tutaj najlepszy wariant osiaga +11.86% MSE;
+   (b) ocena cluster-awareness wymaga korekty - przy rownym budzecie obserwacji i preprocessingu referencyjnym przewaga wystepuje w 1/2 porownaniach par (w NB#5 nie wystepowala w zadnym);
+   (c) ocena GAN ulega odwroceniu - w NB#5 CLUSTER_AWARE_GAN byl najlepszym wariantem dla modeli nieliniowych, tutaj warianty GAN wypadaja najslabiej (mediana dMSE -23.00%);
+   (d) ocena istotnosci ulega ZMIANIE - w NB#5 zaden wariant nie byl istotny statystycznie, tutaj istotnych jest 3/5: istotna poprawa dla GLOBAL_AUG, CLUSTER_AWARE_CLASSICAL, istotne POGORSZENIE dla CLUSTER_AWARE_GAN. Zwiekszenie mocy testu wynika z oceny na 266539 obserwacjach surowych zamiast na przepróbkowanej reprezentacji segmentowej;
+   (e) utrzymuje sie wniosek o koncentracji korzysci w trudniejszym rezimie pracy oraz o redukcji rozstepu bledu miedzy rezimami (z 1.00 K dla REAL_ONLY do 0.27 K dla CLUSTER_AWARE_CLASSICAL).
+
+10. Ograniczenia:
+   (a) dane syntetyczne powstaly na reprezentacji 128-punktowej i zostaly interpolowane do skali
+       czasu - ich zawartosc wysokoczestotliwosciowa jest wygladzona, co moze zanizac wartosc
+       augmentacji dla cech EWMS;
+   (b) historia termiczna segmentow TimeGAN jest zakotwiczona w losowo dobranym segmencie-donorze
+       z TRAIN, poniewaz segmenty te nie maja segmentu zrodlowego;
+   (c) 11 profili TEST ogranicza moc statystyczna testu parowego;
+   (d) spany wybrano na zbiorze walidacyjnym z puli 9 wartosci, a nie optymalizacja bayesowska
+       jak w [A]; nie strojono hiperparametrow modeli per wariant;
+   (e) moment obrotowy pominieto zgodnie z [B], co stanowi odstepstwo od NB#4/NB#5;
+   (f) jedno stanowisko pomiarowe - brak podstaw do generalizacji na inne maszyny.
